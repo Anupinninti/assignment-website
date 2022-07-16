@@ -1,0 +1,816 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            margin: 0px;
+            padding: 0px;
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(#020024,#00d4ff);
+        }
+        /* papayawhip */
+        .container{
+            margin-top: 50px;
+            margin-bottom: 50px;
+            /* background-color:rgb(252, 243, 228); */
+            width: 40%;
+            height: max-content;
+            border-radius: 10px;
+            /* box-shadow: 0px 0px 20px gray; */
+            border: 1px solid rgba(128, 128, 128, 0.144);
+            padding:20px;
+            padding-bottom: 0px;
+            /* display: flex;
+            align-items: center;
+            flex-direction: column; */
+            z-index: 5;
+            background-color: white;
+            background-image: linear-gradient(-60deg,#16a085 0%,#f4d03f 100%);
+        }
+        .form{
+            padding: 0px 20px 5px 20px;
+        }
+        @media screen and (max-width:800px){
+            .container{
+                padding: 0px;
+                width: 95%;
+            }
+            .f1{
+                width: 100% !important;
+                
+            }
+            .f2{
+                padding: 0% !important;
+            }
+            .form-control,.pic,select,.sub,.res{
+                width: 100% !important;
+            }
+            .hob{
+                width: 97% !important;
+            }
+            /* .msg1{
+                left: 69% !important;
+            } */
+            .balls{
+                left: -70px !important;
+            }
+            .form-date{
+                width: 22% !important;
+            }
+            input[type="checkbox"]:before{
+                font-size: 15.5px !important;
+                position: relative !important;
+                top: -5px !important;
+            }
+            
+        }
+        label{
+            
+            margin-bottom: 4px;
+            color: black;
+            display: inline;
+            font-size: 14;
+        }
+        .fl{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .f2{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .form-control{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            width: 48%;
+        }
+        input[type="text"],[type="number"],[type="password"],select,.hob{
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            border: none;
+            color: gray;
+            outline:1px solid rgba(128, 128, 128, 0.479);
+            /* width: 100%; */
+            /* width: 240; */
+            margin-bottom: 20px;
+            background-color: whitesmoke;
+
+        }
+        input[type="text"]::placeholder{
+            color: lightgray;
+        }
+        input[type="file"]{
+            border-radius: 4px;
+            font-size: 12px;
+            border: none;
+            color: gray;
+            /* outline: 1px solid rgb(255, 225, 176); */
+            outline: 1px solid rgba(128, 128, 128, 0.479);
+
+            width: 240;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+        select{
+            padding: 7.2px 8px;
+            border-radius: 4px;
+            border: none;
+            width: 245;
+            margin-bottom: 10px;
+            color: gray;
+        }
+        input[type="submit"]{
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            border: none;
+            width: 200;
+            background: darkcyan;
+            outline: none; 
+            color: white;
+            margin-bottom:10px;
+        }
+        input[type="submit"]:hover:not(:disabled){
+            background-color: green;
+        }
+        input[type="reset"]{
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            border: none;
+            width: 200;
+            background: darkcyan;
+            outline: none; 
+            color: white;
+        }
+        input[type="reset"]:hover{
+            background-color: red;
+        }
+        h1{
+            color:black;
+            /* color: rgb(0, 0, 0); */
+        }
+        input::file-selector-button{
+            background-color: gray;
+            border: none;
+            padding: 3.2px 10px;
+            color: whitesmoke;
+            border-radius: 3px 3px 3px 3px;
+            padding: 8px;
+        }
+        input[type="checkbox"]{
+            border:none;
+        }
+        .msg{
+            display: none;
+            color: red; 
+            font-size: 11px;
+            margin:-15px 0px 10px 5px;
+        }
+        .terms_check{
+            /* position: relative; */
+            display: flex;
+            align-items: flex-end;
+            justify-content:left;
+        }
+        input[type="checkbox"]:before{
+            
+            content: "\2714";
+            border: 1px solid rgba(128, 128, 128, 0.479);
+            font-size: 11px;
+            border-radius: 3px;
+            color: whitesmoke;
+            background-color: whitesmoke;
+        }input[type="checkbox"]:checked:before{
+            background-color:gray ;
+        }
+        .date{
+            width: 100% !important;
+        }
+        .form-date{
+            display: flex;
+            flex-direction: column;
+            width: 110px;
+        }
+        .f3{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .dob{
+            font-weight: bold;
+        }
+        .hobbies{
+            position: relative;
+        }
+        .hobbiess{
+            position: relative;
+        }
+        .add_btn{
+            position: absolute;
+            background: gray;
+            border: none;
+            padding: 7.5px 50px;
+            color: white;
+            border-radius: 3px 3px 3px 3px;
+            /* padding: 8px; */
+            right: 0px;
+            top: 0;
+        }
+        .add_btn:hover{
+            background-color: green;
+            color: white;
+        }
+        .remove_btn:hover{
+            background-color: red;
+            color: white;
+        }
+        .remove_btn{
+            position: absolute;
+            background: gray;
+            border: none;
+            padding: 7.5px 37px;
+            color: white;
+            border-radius: 3px 3px 3px 3px;
+            /* padding: 8px; */
+            right: 0px;
+            top: 0;
+        }
+        .hobbies_input{
+            position: relative;
+            width: 100% !important;
+        }
+        .hobbies_class{
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            border: none;
+            color: rgb(196, 137, 44);
+            outline: 1px solid rgb(196, 137, 44);
+            /* width: 100%; */
+            /* width: 240; */
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <center><h1>Registration</h1></center>
+        <div class="form">
+            <form method="post" onsubmit="return validation()">
+                <div class="fl">
+                    <div class="form-control">
+                        <label>First Name</label>
+                        <input type="text" name="fname" id="fname" onchange="namecheck(this.value,'fname')">
+                        <div class="msg" id="fnamemes"></div>
+                    </div>
+                    <div class="form-control">
+                        <label>Last Name</label>
+                        <input type="text" name="lname" id="lname" onchange="namecheck(this.value,'lname')">
+                        <div class="msg" id="lnamemes"></div>
+                    </div>
+                </div>
+                <div class="fl">
+                    <div class="form-control">
+                        <label>Middle Name (Optional)</label>
+                        <input type="text" id="mname" id="mname" onchange="mnamecheck(this.value,'mname')">
+                        <div class="msg" id="mnamemes"></div>
+                    </div>
+                    <div class="form-control">
+                        <label>Passport Size Photo</label>
+                        <input type="file" class="pic" id="file" size="50" onchange="pic()">
+                        <div class="msg" id="filemes"></div>
+
+                    </div>
+                </div>
+                <div class="form-control" id="fname" style="width: 100%;">
+                    <label> Full Name</label>
+                    <input type="text" style="width: 100%;" id="fullname" readonly>
+                </div>
+                <div class="fl">
+                    <div class="form-control">
+                        <label>Country</label>
+                        <select id="country" style="margin-bottom: 20px;" onchange="select()">
+                            <option value="india">INDIA</option>
+                            <option value="usa">U.S.A.</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <label>Mobile Number</label>
+                        <input type="text" id="mobilenumber" oninput="mobilecheck()">
+                        <div class="msg" id="mobilemes"></div>
+                    </div>
+                </div>
+                <div class="fl">
+                    <div class="form-control">
+                        <label>Address</label>
+                        <input type="text">
+                    </div>
+                    <div class="form-control">
+                        <label> Hobbies</label>
+                        <div class="hob" style="display: flex;align-items: center;justify-content: space-evenly;padding:5.5;border-radius: 4px;margin-bottom: 20px;">
+                            <div> <input type="checkbox" value="drawing"><span style="position:relative; top:-1.5px; color: black;"> Drawing </span></div>
+                            <div> <input type="checkbox" value="coding"><span style="position:relative; top:-1.5px; color: black;"> Coding </span></div>
+                            <div> <input type="checkbox" value="reading"><span style="position:relative; top:-1.5px; color: black;"> Reading </span></div>
+                        </div>
+                    </div>
+                </div>
+                <label class="dob">Date of Birth:</label>
+                <div class="f3">
+                    <div class="form-date">
+                        <label class="datelabel">Date</label>
+                        <input type="text" class="date" id="date_input" placeholder="DD" onchange="birthdate(this.value)">
+                    </div>
+                    <div class="form-date">
+                        <label class="datelabel">Month</label>
+                        <input type="text" class="date" id="month_input" placeholder="MM" onchange="birthmonth(this.value)">
+                    </div>
+                    <div class="form-date">
+                        <label class="datelabel">Year</label>
+                        <input type="text" class="date" id="year_input" placeholder="YYYY" onchange="birthyear(this.value)">
+                    </div>
+                    <div class="form-date">
+                        <label class="datelabel">Age</label>
+                        <input type="text" class="date" id="age_input" readonly>
+                    </div>
+                </div>
+                <div class="msg" id="dobmsg"></div>
+                <div class="form-control" id="hob_form" style="width: 100%;">
+                    <label>Hobbies</label>
+                    <div class="hobbies" id="hob_block">
+                        <input type="text" class="hobbies_input" id="hobbies">
+                        <input type="button" class="add_btn" value="Add" onclick="addhobbies()">
+                    </div>
+                    <div class="msg" id="hobbiesmsg"></div>
+                </div>
+
+
+                <div class="form-control" style="width: 100%;">
+                    <label>Email</label>
+                    <input type="text" id="email" onchange="mailcheck(this.value)">
+                    <div class="msg" id="mailmes"></div>
+                </div>
+                <div class="form-control" style="width: 100%;">
+                    <label>Password</label>
+                    <div>
+                        <input type="password" style="width: 100%;" id="password" onchange="passwordcheck(this.value)">
+                        <div class="msg" id="passmes"></div>
+                        <input type="checkbox" onclick="show()" id="radio" class="radio"><span style="color: rgb(167, 103, 0);font-size: 14;position: relative;top: -1;"> Show Password</span> <br>
+                        <div class="terms_check">
+                            <input type="checkbox"  id="terms" class="terms" style="margin-top: 25px;"><span style="color: rgb(167, 103, 0);font-size: 14;position: relative;top: -1;left: 4;"> I Agree to the Terms & Conitions </span>
+                            <div class="msg1" id="term_check" style="color: red; font-size: 11px;margin: 2px 10px;display: none;"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="f2" style="margin-top: 25;margin-bottom: 0px;padding-left: 25px;">
+                    <div class="form-control">
+                        <input type="submit" value="Register" class="sub" id="sub-btn"> 
+                    </div>
+                    <div class="form-control">
+                        <input type="reset" value="Clear" class="res" onclick="return clear_data()">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function confirmation(){
+            var a=confirm("Are you sure want to Save Data");
+            if (a){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+
+
+        var outline="rgb(196, 137, 44)"
+        function clear_data(){
+            var a=confirm("Are you sure want to clear filled data");
+            if (a){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        //validation
+        var fnerror=0;
+        var lnerror=0;
+        var mnerror=0;
+        var flerror=0;
+        var pherror=0;
+        var emerror=0;
+        var pserror=0;
+        var dateerror=0;
+        var montherror=0;
+        var yearerror=0;
+        var hoberror=0;
+        function validation(){
+            var tc=document.getElementById("terms").checked;
+            if(tc==false){
+                document.getElementById("term_check").style.display="block";
+                document.getElementById("term_check").innerText="* Required";
+                return false;
+            }else{
+                document.getElementById("term_check").style.display="none";
+            }
+            if (fnerror==0){
+                document.getElementById("fname").style.outlineColor="red";
+                document.getElementById("fnamemes").style.display="block";
+                document.getElementById("fnamemes").innerText="* Enter Valid Name";
+                fields()
+                return false;
+            }
+            if (lnerror==0){
+                document.getElementById("lname").style.outlineColor="red";
+                document.getElementById("lnamemes").style.display="block";
+                document.getElementById("lnamemes").innerText="* Enter Valid Name";
+                fields()
+                return false;
+            }
+            if (mnerror==-1){
+                // document.getElementById("mname").style.outlineColor="red";
+                // document.getElementById("mnamemes").style.display="block";
+                // document.getElementById("mnamemes").innerText="* Enter Valid Name";
+                return false;
+            }
+            if (flerror==0){
+                document.getElementById("file").style.outlineColor="red";
+                document.getElementById("filemes").style.display="block";
+                document.getElementById("filemes").innerText="* Please Upload Valid File";
+                fields() 
+                return false;
+            }
+            if (pherror==0){
+                document.getElementById("mobilenumber").style.outlineColor="red";
+                document.getElementById("mobilemes").style.display="block";
+                document.getElementById("mobilemes").innerText="* Enter Valid Mobile Number";
+                fields()
+                return false;
+            }
+            if (dateerror==0){
+                document.getElementById("date_input").style.outlineColor="red";
+                document.getElementById("dobmsg").style.display="block";
+                document.getElementById("dobmsg").innerText="* Enter Date";
+                fields()
+                return false;
+            }
+            if (montherror==0){
+                document.getElementById("month_input").style.outlineColor="red";
+                document.getElementById("dobmsg").style.display="block";
+                document.getElementById("dobmsg").innerText="* Enter Month";
+                fields()
+                return false;
+            }
+            if (yearerror==0){
+                document.getElementById("year_input").style.outlineColor="red";
+                document.getElementById("dobmsg").style.display="block";
+                document.getElementById("dobmsg").innerText="* Enter Year";
+                fields()
+                return false;
+            }
+            if (emerror==0){
+                document.getElementById("email").style.outlineColor="red"
+                document.getElementById("mailmes").style.display="block";
+                document.getElementById("mailmes").innerText="* Enter valid email address";
+                fields()
+                return false;
+            }
+            if (pserror==0){
+                document.getElementById("password").style.outlineColor="red";
+                document.getElementById("passmes").style.display="block";
+                document.getElementById("passmes").innerText="* Enter Valid Password (Combination of alphabets and numbers)";
+                fields()
+                return false;
+            }
+            else{
+                var a=confirmation();
+                if (a==true){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }
+
+
+        // show password
+        function show(){
+            var s=document.getElementById("radio").checked;
+            if(s){
+                document.getElementById("password").type="text"
+            }else{
+                document.getElementById("password").type="password"
+            }
+        }
+
+
+
+
+        //mail validation
+        function mailcheck(value){
+            var c=/[a-z,0-9,_,.][a-z,0-9,_,.][a-z,0-9,_,.]@[a-z]{3,6}\.([a-z]{2,3}\.)?[a-z]{2,3}$/gi;
+            var a=c.test(value);
+            if (a==false){
+                document.getElementById("email").style.outlineColor="red"
+                document.getElementById("mailmes").style.display="block";
+                document.getElementById("mailmes").innerText="* Enter valid email address";
+                emerror=0;
+            }
+            else{
+                document.getElementById("email").style.outlineColor=outline
+                document.getElementById("mailmes").style.display="none";
+                emerror=1;
+            }
+        }
+        
+
+
+        // first name, last name
+        function namecheck(value,x){
+            var nreg=/^[a-z, ]+$/i;
+            var a=nreg.test(value);
+            if(a==false | value.length<3){
+                if(x=="fname"){
+                    document.getElementById("fname").style.outlineColor="red";
+                    document.getElementById("fnamemes").style.display="block";
+                    document.getElementById("fnamemes").innerText="* Enter Valid Name";
+                    fnerror=0;
+                }
+                else if (x=="lname"){
+                    document.getElementById("lname").style.outlineColor="red";
+                    document.getElementById("lnamemes").style.display="block";
+                    document.getElementById("lnamemes").innerText="* Enter Valid Name";
+                    lnerror=0;
+                }
+            }
+            else{
+                if(x=="fname"){
+                    document.getElementById("fname").style.outlineColor=outline;
+                    document.getElementById("fnamemes").style.display="none";
+                    fnerror=1;
+                    fullname()
+                }
+                else if (x=="lname"){
+                    document.getElementById("lname").style.outlineColor=outline;
+                    document.getElementById("lnamemes").style.display="none";
+                    lnerror=1;
+                    fullname()
+                }
+            }
+        }
+
+        // middle name validation
+        function mnamecheck(value,x){
+            var nreg=/^[a-z]*$/i;
+            var a=nreg.test(value);
+            if(a==false & x=="mname"){
+                document.getElementById("mname").style.outlineColor="red";
+                document.getElementById("mnamemes").style.display="block";
+                document.getElementById("mnamemes").innerText="* Enter Valid Name";
+                mnerror=-1;
+            }
+            else{
+                document.getElementById("mname").style.outlineColor=outline;
+                document.getElementById("mnamemes").style.display="none";
+                mnerror=1;
+            }
+        }
+
+
+
+        // full name
+        function fullname(){
+            var fn=document.getElementById("fname").value;
+            var ln=document.getElementById("lname").value;
+            var mn=document.getElementById("mname").value;
+            var full=fn+" "+ln;
+            document.getElementById("fullname").value=full;
+        }
+        
+
+
+        // mobile number validation
+        function mobilecheck(){
+            var indreg=/^[6-9]\d{9}$/;
+            var usareg=/^[6-9]\d{2}[-]\d{3}[-]\d{4}$/gi;
+            var country=document.getElementById("country").value;
+            var value=document.getElementById("mobilenumber").value;
+            console.log("mob")
+            if(country=="india"){
+                var a=indreg.test(value);
+                if(a==false){
+                    document.getElementById("mobilenumber").style.outlineColor="red";
+                    document.getElementById("mobilemes").style.display="block";
+                    document.getElementById("mobilemes").innerText="* Enter valid Indian Mobile Number";
+                    pherror=0;
+                }
+                else{
+                    document.getElementById("mobilenumber").style.outlineColor=outline;
+                    document.getElementById("mobilemes").style.display="none";
+                    pherror=1;
+                }
+            }else if(country=="usa"){
+                var a=usareg.test(value);
+                if(a==false){
+                    document.getElementById("mobilenumber").style.outlineColor="red";
+                    document.getElementById("mobilemes").style.display="block";
+                    document.getElementById("mobilemes").innerText="* Enter valid U.S.A Mobile Number"; 
+                    pherror=0;
+                }
+                else{
+                    document.getElementById("mobilenumber").style.outlineColor=outline;
+                    document.getElementById("mobilemes").style.display="none";
+                    pherror=1;
+                }
+            }
+        }
+
+
+        //pic
+        function pic(){
+            var file=document.getElementById("file");
+            var size=((file.files[0].size)/1024).toFixed(2);
+            if (size<=50 & ((file.files[0].type)=='image/png' | (file.files[0].type=='image/jpg') | (file.files[0].type=='image/jpeg'))){
+                document.getElementById("filemes").style.outlineColor=outline;
+                document.getElementById("filemes").style.display="none";
+                flerror=1;
+            }
+            else{
+                if(size>50 & ((file.files[0].type=='image/png') | (file.files[0].type=='image/jpg') | (file.files[0].type=='image/jpeg'))){
+                    document.getElementById("file").style.outlineColor="red";
+                    document.getElementById("filemes").style.display="block";
+                    document.getElementById("filemes").innerText="* File is too large upload below 50kb"; 
+                    flerror=0;
+                }
+                else{
+                    document.getElementById("file").style.outlineColor="red";
+                    document.getElementById("filemes").style.display="block";
+                    document.getElementById("filemes").innerText="* Format not supported Upload .png .jpg .jpeg";
+                    flerror=0 
+                }
+            }
+        }
+
+
+        //country
+        function select(){
+            mobilecheck()
+        }
+
+
+        //password
+        function passwordcheck(value){
+            var nreg=/^[a-z,_,0-9]+$/i;
+            var a=nreg.test(value);
+            if(a==false | value.length<6){
+                if(value.length<6){
+                    document.getElementById("password").style.outlineColor="red";
+                    document.getElementById("passmes").style.display="block";
+                    document.getElementById("passmes").innerText="* Password must contains at least 6 characters";
+                    pserror=0;
+                }
+                else{
+                    document.getElementById("password").style.outlineColor="red";
+                    document.getElementById("passmes").style.display="block";
+                    document.getElementById("passmes").innerText="* Enter Valid Password (Combination of alphabets and numbers)";
+                    pserror=0;
+                }
+            }
+            else{
+                document.getElementById("password").style.outlineColor=outline;
+                document.getElementById("passmes").style.display="none";
+                pserror=1;
+            }
+        }
+
+
+        //date of birth
+        function birthdate(value){
+            var reg=/^0[1-9]$|^[1-9]$|^[12][0-9]$|^3[01]$/g;
+            var a=reg.test(value)
+            if (a){
+                document.getElementById("date_input").style.outlineColor=outline;
+                document.getElementById("dobmsg").style.display="none";
+                dateerror=1;
+            }else{
+                document.getElementById("date_input").style.outlineColor="red";
+                document.getElementById("dobmsg").style.display="block";
+                document.getElementById("dobmsg").innerText="* Enter Date Between 01-31";
+                dateerror=0;
+            }
+        }
+
+        function birthmonth(value){
+            var reg=/^0[1-9]$|^[1-9]$|^[1][012]$/g;
+            var a=reg.test(value)
+            if (a){
+                document.getElementById("month_input").style.outlineColor=outline;
+                document.getElementById("dobmsg").style.display="none";
+                montherror=1;
+            }else{
+                document.getElementById("month_input").style.outlineColor="red";
+                document.getElementById("dobmsg").style.display="block";
+                document.getElementById("dobmsg").innerText="* Enter Month Between 01-12";
+                montherror=0;
+            }
+        }
+        function birthyear(value){
+            var reg=/^19[0-9][0-9]$|^20[0-9][0-9]$/g;
+            var a=reg.test(value)
+            var pdate=new Date();
+            var pyear=pdate.getFullYear();
+            if (a){
+                if (value<pyear){
+                    document.getElementById("year_input").style.outlineColor=outline;
+                    document.getElementById("dobmsg").style.display="none";
+                    var age=(pyear-value);
+                    document.getElementById("age_input").value=age;
+                    yearerror=1;
+                }else{
+                    document.getElementById("year_input").style.outlineColor="red";
+                    document.getElementById("dobmsg").style.display="block";
+                    document.getElementById("dobmsg").innerText="* Enter Valid Year (between 1900-"+pyear+")";
+                    yearerror=0;
+                } 
+            }else{
+                document.getElementById("year_input").style.outlineColor="red";
+                document.getElementById("dobmsg").style.display="block";
+                document.getElementById("dobmsg").innerText="* Enter Valid Year (between 1900-"+pyear+")";
+                yearerror=0;
+            }
+        }
+
+        function addhobbies(){
+            var hob=document.getElementById("hobbies");
+            if ((hob.value.length)==0) {
+                    document.getElementById("hobbies").style.outlineColor="red";
+                    document.getElementById("hobbiesmsg").style.display="block";
+                    document.getElementById("hobbiesmsg").innerText="* Enter Your Hobbies";
+                    hoberror=0;
+            }else{
+                document.getElementById("hobbies").style.outlineColor=outline;
+                document.getElementById("hobbiesmsg").style.display="none";
+                hoberror=hoberror+1;
+
+                var form=document.getElementById("hob_form");
+                var formele=document.createElement("div")
+                formele.setAttribute("class","hobbiess");
+                form.appendChild(formele);
+
+                var ele=document.createElement("input");
+                var btn=document.createElement("input");
+                btn.setAttribute("type","button")
+                ele.setAttribute("type","text")
+                ele.setAttribute("class","hobbies_class");
+                ele.setAttribute("value",hob.value);
+                ele.readOnly=true;
+                btn.setAttribute("class","remove_btn");
+                btn.setAttribute("value","Remove");
+                // btn.setAttribute("onclick","remove()");
+                console.log(btn);
+                formele.append(btn);
+                formele.append(ele);
+                hob.value="";
+            }
+        }
+        var a=document.getElementById("hob_form");
+        a.addEventListener("click",remove,false);
+        function remove(e){
+            if(e.target.classList.contains('remove_btn')){
+                if (confirm("Are you sure  want to delete?")){
+                    var li=e.target.parentElement;
+                    a.removeChild(li);
+                    hoberror=hoberror-1;
+                }
+            }
+        }
+
+        function fields(){
+            alert("Fill the required fields")
+        }
+    </script>
+</body>
+</html>
